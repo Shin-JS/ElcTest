@@ -7,7 +7,8 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class BoardServiceClient {
 	public static void main(String[] args) {
-		AbstractApplicationContext container = new GenericXmlApplicationContext("annotationContext.xml");
+		/*AbstractApplicationContext container = new GenericXmlApplicationContext("annotationContext.xml");*/
+		AbstractApplicationContext container = new GenericXmlApplicationContext("aopContext.xml");
 		
 		BoardService boardService = (BoardService) container.getBean("boardService");
 		
@@ -59,7 +60,7 @@ public class BoardServiceClient {
 		//삭제
 		int seq = -1;
 		for(int i=0;i<boardList.size();i++) {
-			if(boardList.get(i).getSeq()==14) {
+			if(boardList.get(i).getSeq()==12) {
 				seq = boardList.get(i).getSeq();
 			}
 		}
