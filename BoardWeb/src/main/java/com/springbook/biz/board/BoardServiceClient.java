@@ -26,5 +26,6 @@ public class BoardServiceClient {
 		
 		//Spring컨테이너 종료
 		container.close();
+		//뭔가 바꿨다는 티는 내줘야지
 	}
 }
