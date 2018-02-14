@@ -20,6 +20,9 @@ public class BoardDAO {
 	//sql문
 	private final String BOARD_INSERT="insert into board(seq, title, writer, content) values((select nvl(max(seq),0)+1 from board),?,?,?)";
 	private final String BOARD_LIST="select * from board order by seq desc";
+	private final String BOARD_UPDATE="update board set title=?, content=? where seq=?";
+	private final String BOARD_GET="select * from board where seq=?";
+	private final String BOARD_DELETE="delete from board where seq=?";
 	
 	public void insertBoard(BoardVO vo) {
 		try {
@@ -59,6 +62,63 @@ public class BoardDAO {
 			JDBCUtil.close(rs, pstmt, conn);
 		}
 		return list;
+	}
+	
+	public void updateBoard(BoardVO vo) {
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(BOARD_UPDATE);
+			int i = 0;
+			pstmt.setString(++i, vo.getTitle());
+			pstmt.setString(++i, vo.getContent());
+			pstmt.setInt(++i, vo.getSeq());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			JDBCUtil.close(pstmt, conn);
+		}
+	}
+	
+	public BoardVO getBoard(int seq) {
+		BoardVO board = new BoardVO();
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(BOARD_GET);
+			pstmt.setInt(1, seq);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				board.setSeq(rs.getInt("SEQ"));
+				board.setTitle(rs.getString("TITLE"));
+				board.setWriter(rs.getString("WRITER"));
+				board.setContent(rs.getString("CONTENT"));
+				board.setRegDate(rs.getDate("REGDATE"));
+				board.setCnt(rs.getInt("CNT"));
+				
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		}
+		return board;
+	}
+
+	public int deleteBoard(int seq) {
+		int result = 0;
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(BOARD_DELETE);
+			int i = 0;
+			pstmt.setInt(++i, seq);
+
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			JDBCUtil.close(pstmt, conn);
+		}
+		return result;
 	}
 	
 }
