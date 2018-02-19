@@ -5,11 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springbook.biz.board.impl.BoardDAO;
+/*import com.springbook.biz.board.impl.BoardDAO;*/
+/*import com.springbook.biz.board.impl.BoardDAOSpring;*/
+/*import com.springbook.biz.board.impl.BoardDAOSpring2;*/
+import com.springbook.biz.board.impl.BoardDAOSpring3;
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
 	@Autowired
-	private BoardDAO dao;
+	/*private BoardDAO dao;*/
+	/*private BoardDAOSpring dao;*/
+	/*private BoardDAOSpring2 dao;*/
+	private BoardDAOSpring3 dao;
 	
 	@Override
 	public void insertBoard(BoardVO vo) {

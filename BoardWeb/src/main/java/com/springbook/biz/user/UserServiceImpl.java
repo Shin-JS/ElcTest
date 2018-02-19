@@ -9,7 +9,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDAO dao;
 	@Override
-	public UserVO setUser(UserVO vo) {
+	public UserVO setUser(UserVO vo){
 		return dao.setUser(vo);
 	}
 

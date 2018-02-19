@@ -6,7 +6,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 public class UserServiceClient {
 	public static void main(String[] args) {
 		//1.Spring 컨테이너 구동
-		AbstractApplicationContext ctx = new GenericXmlApplicationContext("annotationContext.xml");
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("annotationAopContext.xml");
 		//2.Spring컨테이너로부터 UserServiceImpl객체 lookup
 		UserService us = (UserService) ctx.getBean("userService");
 		
@@ -24,12 +24,12 @@ public class UserServiceClient {
 		}
 		
 		//4. 사용자 추가 테스트
-		vo.setId("ddochi");
+/*		vo.setId("ddochi");
 		vo.setPassword("duly");
 		vo.setName("또치");
 		vo.setRole("guest");
 		user = us.setUser(vo);
-		System.out.println(user);
+		System.out.println(user);*/
 		
 		//4.Spring 컨테이너 종료
 		ctx.close();

@@ -8,7 +8,8 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 public class BoardServiceClient {
 	public static void main(String[] args) {
 		/*AbstractApplicationContext container = new GenericXmlApplicationContext("annotationContext.xml");*/
-		AbstractApplicationContext container = new GenericXmlApplicationContext("aopContext.xml");
+		/*AbstractApplicationContext container = new GenericXmlApplicationContext("aopContext.xml");*/
+		AbstractApplicationContext container = new GenericXmlApplicationContext("annotationAopContext.xml");
 		
 		BoardService boardService = (BoardService) container.getBean("boardService");
 		
@@ -16,7 +17,7 @@ public class BoardServiceClient {
 		BoardVO vo = new BoardVO();
 		vo.setTitle("임시 제목");
 		vo.setWriter("홍길동");
-		vo.setContent("오늘은 설 전날.................");
+		vo.setContent("되나 이거");
 		boardService.insertBoard(vo);
 		
 		//글 목록 검색기능 테스트
@@ -27,7 +28,7 @@ public class BoardServiceClient {
 		
 		//글 수정 테스트
 		for(int i=0; i<boardList.size();i++) {
-			if(boardList.get(i).getSeq()==8) {
+			if(boardList.get(i).getSeq()==2) {
 				vo = boardList.get(i); //8번글 저장
 			}
 		}
@@ -60,7 +61,7 @@ public class BoardServiceClient {
 		//삭제
 		int seq = -1;
 		for(int i=0;i<boardList.size();i++) {
-			if(boardList.get(i).getSeq()==12) {
+			if(boardList.get(i).getSeq()==10) {
 				seq = boardList.get(i).getSeq();
 			}
 		}
