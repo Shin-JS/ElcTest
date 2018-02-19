@@ -12,8 +12,8 @@ public class UserServiceClient {
 		
 		//3. 로그인 테스트
 		UserVO vo = new UserVO();
-		vo.setId("duly");
-		vo.setPassword("gildong");
+		vo.setId("test");
+		vo.setPassword("1234");
 		
 		UserVO user = us.getUser(vo);
 		if(user!=null) {
@@ -27,7 +27,7 @@ public class UserServiceClient {
 		vo.setId("ddochi");
 		vo.setPassword("duly");
 		vo.setName("또치");
-		vo.setRole("식객");
+		vo.setRole("guest");
 		user = us.setUser(vo);
 		System.out.println(user);
 		
