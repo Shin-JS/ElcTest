@@ -17,7 +17,7 @@ import com.springbook.biz.board.BoardVO;
  *	2. bean으로 등록된 jdbcTemplate를 얻는 방법(POJO 객체)
  * */
 @Repository()
-public class BoardDAOSpring3 /*extends JdbcDaoSupport*/{
+public class BoardDAOSpringOracle{
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
