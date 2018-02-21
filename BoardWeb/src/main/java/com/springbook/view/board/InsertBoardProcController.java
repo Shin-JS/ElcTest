@@ -7,16 +7,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+
 import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.board.impl.BoardDAO;
-import com.springbook.view.controller.Controller;
+
 
 public class InsertBoardProcController implements Controller {
 	
 	@Override
-	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		String view = "";
+		ModelAndView mav = new ModelAndView();
 		System.out.println("글 등록 처리");
 		try {
 			request.setCharacterEncoding("utf-8");
@@ -31,11 +35,11 @@ public class InsertBoardProcController implements Controller {
 			
 			BoardDAO dao = new BoardDAO();
 			dao.insertBoard(vo);
-			view = "getBoardList.do";
+			mav.setViewName("getBoardList.do");
 		} catch (UnsupportedEncodingException e) {
 			System.out.println(e.getMessage());
 		}
-		return view;
+		return mav;
 	}
 
 }

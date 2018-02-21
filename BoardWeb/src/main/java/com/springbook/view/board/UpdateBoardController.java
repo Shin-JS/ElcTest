@@ -6,15 +6,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+
 import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.board.impl.BoardDAO;
-import com.springbook.view.controller.Controller;
+
 
 public class UpdateBoardController implements Controller {
 	
 	@Override
-	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
+		ModelAndView mav = new ModelAndView();
 		String view = "";
 		System.out.println("글 수정 처리");
 		try {
@@ -33,11 +37,12 @@ public class UpdateBoardController implements Controller {
 			BoardDAO dao = new BoardDAO();
 			dao.updateBoard(vo);
 			view = "getBoardList.do";
+			mav.setViewName("getBoardList.do");
 		} catch (UnsupportedEncodingException e) {
 			System.out.println(e.getMessage());
 		}
 		//3. 화면 이동
-		return view;
+		return mav;
 	}
 
 }

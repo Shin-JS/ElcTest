@@ -1,4 +1,4 @@
-package com.springbook.view.controller;
+package com.springbook.view.controller.bak;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

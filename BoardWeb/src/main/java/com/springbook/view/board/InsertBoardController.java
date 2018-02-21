@@ -5,21 +5,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.springbook.view.controller.Controller;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+
 
 public class InsertBoardController implements Controller {
 	
 	@Override
-	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
+		ModelAndView mav = new ModelAndView();
 		String id = (String)session.getAttribute("id");
 		String view = "";
 		if(id==null||"".equals(id)){
-			view =  "login.do";
+			mav.setViewName("login.do");
 		}else {
-			view = "insertBoard";
+			mav.setViewName("insertBoard");
 		}
-		return view;
+		return mav;
 	}
 
 }

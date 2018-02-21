@@ -1,4 +1,4 @@
-package com.springbook.view.controller;
+package com.springbook.view.controller.bak;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,14 +17,14 @@ public class HandleMapping {
 	
 	public HandleMapping() {
 		mappings = new HashMap<>();
-		mappings.put("/login.do", new LoginController());
+		/*mappings.put("/login.do", new LoginController());
 		mappings.put("/getBoardList.do", new GetBoardListController());
 		mappings.put("/getBoard.do", new GetBoardController());
 		mappings.put("/insertBoard.do", new InsertBoardController());
 		mappings.put("/insertBoardProc.do", new InsertBoardProcController());
 		mappings.put("/updateBoard.do", new UpdateBoardController());
 		mappings.put("/deleteBoard.do", new DeleteBoardController());
-		mappings.put("/logout.do", new LogoutController());
+		mappings.put("/logout.do", new LogoutController());*/
 	}
 	public Controller getController(String path) {
 		return mappings.get(path);
