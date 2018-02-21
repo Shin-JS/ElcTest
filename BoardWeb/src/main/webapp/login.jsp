@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>로그인</h1>
-	<form action="login_proc.jsp" method="post">
+	<form action="login.do" method="post">
 		<table border="1" cellpadding="0" cellspacing="0">
 			<tr><td>아이디</td><td><input type="text" name="id"></td></tr><br>
 			<tr><td>비밀번호</td><td><input type="password" name="password"></td></tr><br>

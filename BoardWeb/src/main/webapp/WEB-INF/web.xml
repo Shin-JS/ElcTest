@@ -9,4 +9,15 @@
     <servlet-name>hello</servlet-name>
     <url-pattern>/hello.do</url-pattern>
   </servlet-mapping>
+  <!-- 서블릿 매핑 자동 생성 -->
+  <servlet>
+    <description></description>
+    <display-name>DispatcherServlet</display-name>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <servlet-class>com.springbook.view.controller.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
 </web-app>

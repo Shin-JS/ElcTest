@@ -10,7 +10,7 @@
 	<h1>글 등록</h1>
 	<a href="logout_proc.jsp">로그아웃</a>
 	<hr>
-	<form action="insertBoard_proc.jsp" method="post">
+	<form action="insertBoardProc.do" method="post">
 		<table border="1">
 			<tr><td>제목</td><td><input type="text" name="title"></td></tr>
 			<tr><td>작성자</td><td><input type="text" name="writer"></td></tr>
