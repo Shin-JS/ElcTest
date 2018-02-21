@@ -15,9 +15,10 @@ public class BoardServiceClient {
 		
 		//글 등록 테스트
 		BoardVO vo = new BoardVO();
+		vo.setSeq(100);
 		vo.setTitle("임시 제목");
 		vo.setWriter("홍길동");
-		vo.setContent("되나 이거");
+		vo.setContent("몰라 걍 테스트");
 		boardService.insertBoard(vo);
 		
 		//글 목록 검색기능 테스트

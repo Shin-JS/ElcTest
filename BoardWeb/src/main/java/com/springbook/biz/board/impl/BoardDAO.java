@@ -18,11 +18,11 @@ public class BoardDAO {
 	private ResultSet rs = null;
 	
 	//sql문
-	private final String BOARD_INSERT="insert into board(seq, title, writer, content) values((select nvl(max(seq),0)+1 from board),?,?,?)";
-	private final String BOARD_LIST="select * from board order by seq desc";
-	private final String BOARD_UPDATE="update board set title=?, content=? where seq=?";
-	private final String BOARD_GET="select * from board where seq=?";
-	private final String BOARD_DELETE="delete from board where seq=?";
+	private final String BOARD_INSERT="insert into board3(seq, title, writer, content) values((select nvl(max(seq),0)+1 from board3),?,?,?)";
+	private final String BOARD_LIST="select * from board3 order by seq desc";
+	private final String BOARD_UPDATE="update board3 set title=?, content=? where seq=?";
+	private final String BOARD_GET="select * from board3 where seq=?";
+	private final String BOARD_DELETE="delete from board3 where seq=?";
 	
 	public void insertBoard(BoardVO vo) {
 		try {
