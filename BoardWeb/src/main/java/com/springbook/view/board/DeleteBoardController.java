@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.springbook.biz.board.impl.BoardDAO;
 
-@Controller
+//@Controller
 public class DeleteBoardController /*implements Controller*/ {
 	
 /*	@Override

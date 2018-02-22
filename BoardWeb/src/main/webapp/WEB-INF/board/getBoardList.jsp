@@ -14,10 +14,10 @@
 	BoardVO vo = new BoardVO();
 	List<BoardVO> list = dao.getBoardList(vo);
 %> --%>
-<%
+<%-- <%
 	List<BoardVO> list = (List)session.getAttribute("boardList");
 	
-%>
+%> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,8 +25,20 @@
 <title>boardList</title>
 </head>
 <body>
-	<h1>BoardList</h1>
-	<h3><a href="logout.do">로그아웃</a></h3>
+	<h1>게시글 목록</h1>
+	<h3>${userName}님 환영합니다.<a href="logout.do">로그아웃</a></h3>
+	<form action="getBoardList.do" method="post">
+		<table border="1">
+			<tr>
+				<td align="center"><select name="searchCondition">
+					<c:forEach items="${conditionMap}" var="option">
+						<option value="${option.value}">${option.key}</option>
+					</c:forEach>
+				</select><input type="text" name="searchKeyword"><input type="submit" value="검색"></td>
+			</tr>
+		</table>
+	</form>
+	<!-- 검색 종료 -->
 	<table border="1">
 		<tr><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th></tr>
 		<c:forEach items="${boardList }" var="list">

@@ -24,6 +24,12 @@ public class BoardDAO {
 	private final String BOARD_GET="select * from board3 where seq=?";
 	private final String BOARD_DELETE="delete from board3 where seq=?";
 	private final String BOARD_CNTUPDATE = "update board3 set cnt=nvl(cnt,0)+1 where seq=?";
+	//Title
+	private final String BOARD_LIST_SEARCH_T = "select * from board3 where title like '%'||?||'%' order by seq desc";
+	//Content
+	private final String BOARD_LIST_SEARCH_C = "select * from board3 where content like '%'||?||'%' order by seq desc";
+	//all
+	private final String BOARD_LIST_SEARCH_A = "select * from board3 where title like '%'||?||'%' or content like '%'||?||'%' order by seq desc";
 	
 	public void insertBoard(BoardVO vo) {
 		try {
@@ -46,6 +52,40 @@ public class BoardDAO {
 		try {
 			conn = JDBCUtil.getConnection();
 			pstmt = conn.prepareStatement(BOARD_LIST);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardVO board = new BoardVO();
+				board.setSeq(rs.getInt("SEQ"));
+				board.setTitle(rs.getString("TITLE"));
+				board.setWriter(rs.getString("WRITER"));
+				board.setContent(rs.getString("CONTENT"));
+				board.setRegDate(rs.getDate("REGDATE"));
+				board.setCnt(rs.getInt("CNT"));
+				list.add(board);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		}
+		return list;
+	}
+	//검색조건처리
+	public List<BoardVO> getBoardList(String condition,String keyword) {
+		List<BoardVO> list = new ArrayList<BoardVO>();
+		try {
+			conn = JDBCUtil.getConnection();
+			if(condition.equals("TITLE")) {
+				pstmt = conn.prepareStatement(BOARD_LIST_SEARCH_T);
+				pstmt.setString(1, keyword);
+			}else if(condition.equals("CONTENT")){
+				pstmt = conn.prepareStatement(BOARD_LIST_SEARCH_C);
+				pstmt.setString(1, keyword);
+			}else{
+				pstmt = conn.prepareStatement(BOARD_LIST_SEARCH_A);
+				pstmt.setString(1, keyword);
+				pstmt.setString(2, keyword);
+			}
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				BoardVO board = new BoardVO();
