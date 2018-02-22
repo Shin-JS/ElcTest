@@ -6,24 +6,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
 import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.board.impl.BoardDAO;
 
-
-public class GetBoardController implements Controller {
+@Controller
+public class GetBoardController /*implements Controller*/ {
 	
-	@Override
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
+	/*@Override
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {*/
+	
+	@RequestMapping(value="/getBoard.do")
+	public ModelAndView getBoard(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		System.out.println("글 상세 처리");
 		ModelAndView mav = new ModelAndView();
 		String id = (String)session.getAttribute("id");
-		String view = "";
 		if(id==null||"".equals(id)){
-			mav.setViewName("login.do");
+			mav.setViewName("redirect:login.do");
 		}else {
 			String seq = request.getParameter("seq");
 			BoardVO vo = new BoardVO();
