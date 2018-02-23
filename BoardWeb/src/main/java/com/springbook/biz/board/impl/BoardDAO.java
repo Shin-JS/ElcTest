@@ -20,7 +20,7 @@ public class BoardDAO {
 	//sql문
 	private final String BOARD_INSERT="insert into board3(seq, title, writer, content) values((select nvl(max(seq),0)+1 from board3),?,?,?)";
 	private final String BOARD_LIST="select * from board3 order by seq desc";
-	private final String BOARD_UPDATE="update board3 set title=?, content=? where seq=?";
+	private final String BOARD_UPDATE="update board3 set writer=?, title=?, content=? where seq=?";
 	private final String BOARD_GET="select * from board3 where seq=?";
 	private final String BOARD_DELETE="delete from board3 where seq=?";
 	private final String BOARD_CNTUPDATE = "update board3 set cnt=nvl(cnt,0)+1 where seq=?";
@@ -110,6 +110,7 @@ public class BoardDAO {
 			conn = JDBCUtil.getConnection();
 			pstmt = conn.prepareStatement(BOARD_UPDATE);
 			int i = 0;
+			pstmt.setString(++i, vo.getWriter()); //작성자 수정용으로 추가
 			pstmt.setString(++i, vo.getTitle());
 			pstmt.setString(++i, vo.getContent());
 			pstmt.setInt(++i, vo.getSeq());

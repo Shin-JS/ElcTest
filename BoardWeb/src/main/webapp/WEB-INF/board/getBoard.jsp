@@ -26,7 +26,7 @@
 	<input type="hidden" name="seq" value="${board.seq}">
 		<table border="1">
 			<tr><td>제목</td><td><input type="text" name="title" value="${board.title }"></td></tr>
-			<tr><td>작성자</td><td>${board.writer }</td></tr>
+			<tr><td>작성자</td><td><input type="text" name="writer" value="${board.writer }"></td></tr>
 			<tr><td>내용</td><td><textarea name="content" cols="40" rows="10">${board.content }</textarea></td></tr>
 			<tr><td>등록일</td><td>${board.regDate }</td></tr>
 			<tr><td>조회수</td><td>${board.cnt }</td></tr>
