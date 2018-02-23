@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,19 +21,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springbook.biz.board.BoardService;
 import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.board.impl.BoardDAO;
-//Controller클래스의 메소드들을 하나로 통합 후 Component Annotation을 주석처리하여 원래의 POJO 클래스로 변환처리함 
-@Controller
+//Controller클래스의 메소드들을 하나로 통합 후 Component Annotation을 주석처리하여 원래의 POJO 클래스로 변환처리함
+/*@Controller
 @SessionAttributes("board") //board라는 이름으로 객체를 session에 저장하는 Annotation
-public class BoardController {
-	@Autowired
-	private BoardService boardService;
+*/public class BoardController_beforeMerge {
 	//글 등록
 	@RequestMapping(value="/insertBoard.do")
 	public String insertBoard(HttpServletRequest request) {
-		System.out.println("글 등록 폼으로 이동");
+		System.out.println("글 등록 처리");
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		/*ModelAndView mav = new ModelAndView();*/
@@ -50,7 +46,7 @@ public class BoardController {
 	}
 	//글 등록처리
 	@RequestMapping(value="/insertBoardProc.do", method=RequestMethod.POST)
-	public String insertBoardProc(HttpServletRequest request,BoardVO vo/*, BoardDAO dao*/) {
+	public String insertBoardProc(HttpServletRequest request,BoardVO vo, BoardDAO dao) {
 		HttpSession session = request.getSession();
 		String view = "";
 		/*ModelAndView mav = new ModelAndView();*/
@@ -70,9 +66,8 @@ public class BoardController {
 				vo.setWriter(writer);
 				vo.setContent(content);
 				
-				BoardDAO dao = new BoardDAO();
-				dao.insertBoard(vo);*/
-				boardService.insertBoard(vo); //boardService등록
+				BoardDAO */dao = new BoardDAO();
+				dao.insertBoard(vo);
 				view = "redirect:getBoardList.do";
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -83,7 +78,7 @@ public class BoardController {
 	
 	//글 수정
 	@RequestMapping(value="/updateBoard.do")
-	public String updateBoard(@ModelAttribute("board") BoardVO vo, /*BoardDAO dao,*/ HttpServletRequest request/*id체크때문에...*/) {
+	public String updateBoard(@ModelAttribute("board") BoardVO vo, BoardDAO dao, HttpServletRequest request/*id체크때문에...*/) {
 		HttpSession session = request.getSession();
 		/*ModelAndView mav = new ModelAndView();*/
 		String view = "";
@@ -106,9 +101,8 @@ public class BoardController {
 				vo.setContent(content);
 				vo.setSeq(Integer.parseInt(seq));*/
 				
-				/*BoardDAO *//*dao = new BoardDAO();
-				dao.updateBoard(vo);*/
-				boardService.updateBoard(vo);
+				/*BoardDAO */dao = new BoardDAO();
+				dao.updateBoard(vo);
 				/*view = "getBoardList.do";*/
 				/*mav.setViewName("redirect:getBoardList.do");*/
 				view = "redirect:getBoardList.do";
@@ -135,8 +129,7 @@ public class BoardController {
 			String seq = request.getParameter("seq");
 			int result = -1;
 			BoardDAO dao = new BoardDAO();
-			/*result = dao.deleteBoard(Integer.parseInt(seq));*/
-			result = boardService.deleteBoard(Integer.parseInt(seq));
+			result = dao.deleteBoard(Integer.parseInt(seq));
 			PrintWriter out;
 			try {
 				out = response.getWriter();
@@ -158,7 +151,7 @@ public class BoardController {
 	
 	//글 상세조회
 	@RequestMapping(value="/getBoard.do")
-	public String getBoard(HttpServletRequest request, BoardVO vo, /*BoardDAO dao,*/Model model) {
+	public String getBoard(HttpServletRequest request, BoardVO vo, BoardDAO dao,Model model) {
 		HttpSession session = request.getSession();
 		System.out.println("글 상세 처리");
 		/*ModelAndView mav = new ModelAndView();*/
@@ -172,8 +165,7 @@ public class BoardController {
 			/*BoardVO vo = new BoardVO();
 			vo.setSeq(Integer.parseInt(seq)); //순번입력
 			BoardDAO dao = new BoardDAO();*/
-			/*vo = dao.getBoard(vo.getSeq());*/ //객체저장
-			vo = boardService.getBoard(vo.getSeq()); //객체저장, BoardServiceImple의 메소드사용
+			vo = dao.getBoard(vo.getSeq()); //객체저장
 			
 			/*session.setAttribute("board", vo);*/
 			model.addAttribute("board", vo);
@@ -201,13 +193,13 @@ public class BoardController {
 			view = "redirect:login.do";			
 		}else {
 			//1.Board 정보 출력
-			/*BoardDAO dao = new BoardDAO();*/
+			BoardDAO dao = new BoardDAO();
 			//@RequestParam으로 넘어온 값이 없으면 처리
 			if(vo.getSearchCondition()==null) {
 				vo.setSearchCondition("TITLE");
 			}//선생님은 searchkeyword까지 if문했으나 안해도 되는듯
 			/*BoardVO vo = new BoardVO();*/
-			list = boardService.getBoardList(vo); //businessLayer쪽의 메소드 사용
+			list = dao.getBoardList(vo.getSearchCondition(),vo.getSearchKeyword());
 			/*mav.addObject("boardList",list);*/
 			/*session.setAttribute("boardList", list);*/
 			model.addAttribute("boardList", list);

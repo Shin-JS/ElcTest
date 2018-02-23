@@ -27,16 +27,17 @@ public class BoardDAOSpringOracle{
 	private ResultSet rs = null;
 	
 	//sql문
-/*	private final String BOARD_INSERT="insert into board(seq, title, writer, content) values((select nvl(max(seq),0)+1 from board),?,?,?)";
-	private final String BOARD_LIST="select * from board order by seq desc";
-	private final String BOARD_UPDATE="update board set title=?, content=? where seq=?";
-	private final String BOARD_GET="select * from board where seq=?";
-	private final String BOARD_DELETE="delete from board where seq=?";*/
 	private final String BOARD_INSERT="insert into board3(seq, title, writer, content) values((select nvl(max(seq),0)+1 from board3),?,?,?)";
 	private final String BOARD_LIST="select * from board3 order by seq desc";
 	private final String BOARD_UPDATE="update board3 set title=?, content=? where seq=?";
 	private final String BOARD_GET="select * from board3 where seq=?";
 	private final String BOARD_DELETE="delete from board3 where seq=?";
+	//Title
+	private final String BOARD_LIST_SEARCH_T = "select * from board3 where title like '%'||?||'%' order by seq desc";
+	//Content
+	private final String BOARD_LIST_SEARCH_C = "select * from board3 where content like '%'||?||'%' order by seq desc";
+	//all
+	private final String BOARD_LIST_SEARCH_A = "select * from board3 where title like '%'||?||'%' or content like '%'||?||'%' order by seq desc";
 	/* annotationAopContext.xml에 설정된 dataSource 얻기*/
 /*	@Autowired
 	public void setSuperDataSource(DataSource dataSource) {
@@ -51,6 +52,7 @@ public class BoardDAOSpringOracle{
 		jdbcTemplate.update(BOARD_INSERT, vo.getTitle(),vo.getWriter(),vo.getContent());
 	}
 	//글 리스트
+
 	public List<BoardVO> getBoardList(BoardVO vo) {
 		System.out.println("===>Spring JDBC로 getBoardList()기능 처리");
 		List<BoardVO> list = new ArrayList<BoardVO>();
