@@ -1,5 +1,6 @@
 package com.springbook.view.board;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springbook.biz.board.BoardService;
@@ -72,6 +74,15 @@ public class BoardController {
 				
 				BoardDAO dao = new BoardDAO();
 				dao.insertBoard(vo);*/
+				//파일 업로드 처리
+				MultipartFile uploadFile = vo.getUploadFile();
+				String path = "c:/data/";
+				if(!uploadFile.isEmpty()) {
+					String fileName = uploadFile.getOriginalFilename();
+					uploadFile.transferTo(new File(path+fileName));
+					vo.setFiles(path+fileName);
+					
+				}
 				boardService.insertBoard(vo); //boardService등록
 				view = "redirect:getBoardList.do";
 			} catch (Exception e) {

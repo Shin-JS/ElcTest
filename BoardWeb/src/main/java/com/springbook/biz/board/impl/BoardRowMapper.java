@@ -18,6 +18,7 @@ public class BoardRowMapper implements RowMapper<BoardVO> {
 		board.setContent(rs.getString("CONTENT"));
 		board.setRegDate(rs.getDate("REGDATE"));
 		board.setCnt(rs.getInt("CNT"));
+		board.setFiles(rs.getString("FILES"));
 		
 		return board;
 	}

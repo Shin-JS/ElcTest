@@ -27,7 +27,7 @@ public class BoardDAOSpringOracle{
 	private ResultSet rs = null;
 	
 	//sql문
-	private final String BOARD_INSERT="insert into board3(seq, title, writer, content) values((select nvl(max(seq),0)+1 from board3),?,?,?)";
+	private final String BOARD_INSERT="insert into board3(seq, title, writer, content, files) values((select nvl(max(seq),0)+1 from board3),?,?,?,?)";
 	private final String BOARD_LIST="select * from board3 order by seq desc";
 	private final String BOARD_UPDATE="update board3 set title=?, content=? where seq=?";
 	private final String BOARD_GET="select * from board3 where seq=?";
@@ -49,7 +49,7 @@ public class BoardDAOSpringOracle{
 	//글 등록
 	public void insertBoard(BoardVO vo) {
 		System.out.println("===>Spring JDBC로 insertBoard()기능 처리");
-		jdbcTemplate.update(BOARD_INSERT, vo.getTitle(),vo.getWriter(),vo.getContent());
+		jdbcTemplate.update(BOARD_INSERT, vo.getTitle(),vo.getWriter(),vo.getContent(),vo.getFiles());
 	}
 	//글 리스트
 
