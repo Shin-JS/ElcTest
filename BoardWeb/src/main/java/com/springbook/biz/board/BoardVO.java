@@ -80,7 +80,7 @@ public class BoardVO {
 	//toString()재정의
 	@Override
 	public String toString() {
-		return "BoardVo [seq="+seq+",title="+title+",writer="+writer+",content="+content+",regDate="+regDate+",cnt="+cnt+"]";
+		return "BoardVo [seq="+seq+",title="+title+",writer="+writer+",content="+content+",regDate="+regDate+",cnt="+cnt+",files="+files+"]";
 	}
 	
 	

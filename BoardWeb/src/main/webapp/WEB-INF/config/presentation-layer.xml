@@ -56,4 +56,26 @@
 		</property>
 		<property name="defaultErrorView" value="common/error.jsp"></property> <!-- 이렇게 처리함, 이것도 viewResolver때문에 안됨...파일을 이동시키면 되긴 하는데...-->
 	</bean>
+	
+	
+<!-- 다국어 설정 -->
+	<!-- MessageSource 등록 -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+			<!-- messageSource_로케일.properties에서 messageSource까지만표시 -->
+				<value>message.messageSource</value>
+			</list>
+		</property>
+	</bean>
+	<!-- LocaleResolver -->
+	<!-- Session으로 전달된 locale정보에 의해 해당 locale설정 -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+	</bean>
+	<!-- LocaleChangeInterceptor  -->
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang"/>
+		</bean>
+	</mvc:interceptors>
 </beans>

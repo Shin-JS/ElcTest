@@ -4,6 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%-- <%
 	String id = (String)session.getAttribute("id");
 	if(id==null||"".equals(id)){
@@ -22,11 +23,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>boardList</title>
+<title><spring:message code="message.board.list.mainTitle"/></title>
 </head>
 <body>
-	<h1>게시글 목록</h1>
-	<h3>${userName}님 환영합니다.<a href="logout.do">로그아웃</a></h3>
+	<h1><spring:message code="message.board.list.mainTitle"/></h1>
+	<h3>${userName}<spring:message code="message.board.list.welcomeMsg"/><a href="logout.do">로그아웃</a></h3>
 	<form action="getBoardList.do" method="post">
 		<table border="1">
 			<tr>
@@ -34,13 +35,13 @@
 					<c:forEach items="${conditionMap}" var="option">
 						<option value="${option.value}">${option.key}</option>
 					</c:forEach>
-				</select><input type="text" name="searchKeyword"><input type="submit" value="검색"></td>
+				</select><input type="text" name="searchKeyword"><input type="submit" value="<spring:message code="message.board.list.search.condition.btn"/>"></td>
 			</tr>
 		</table>
 	</form>
 	<!-- 검색 종료 -->
 	<table border="1">
-		<tr><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th></tr>
+		<tr><th><spring:message code="message.board.list.title.seq"/></th><th><spring:message code="message.board.list.title.title"/></th><th><spring:message code="message.board.list.title.writer"/></th><th><spring:message code="message.board.list.title.regDate"/></th><th><spring:message code="message.board.list.title.cnt"/></th></tr>
 		<c:forEach items="${boardList }" var="list">
 			<tr>
 			<td>${list.seq}</td>
@@ -66,6 +67,6 @@
 		%> --%>
 	</table>
 	<br>
-	<a href="insertBoard.do">새글 쓰기</a>
+	<a href="insertBoard.do"><spring:message code="message.board.list.link.insertBoard"/></a>
 </body>
 </html>

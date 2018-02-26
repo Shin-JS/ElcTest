@@ -81,7 +81,6 @@ public class BoardController {
 					String fileName = uploadFile.getOriginalFilename();
 					uploadFile.transferTo(new File(path+fileName));
 					vo.setFiles(path+fileName);
-					
 				}
 				boardService.insertBoard(vo); //boardService등록
 				view = "redirect:getBoardList.do";
@@ -119,6 +118,14 @@ public class BoardController {
 				
 				/*BoardDAO *//*dao = new BoardDAO();
 				dao.updateBoard(vo);*/
+				MultipartFile uploadFile = vo.getUploadFile();
+				String path = "c:/data/";
+				if(!uploadFile.isEmpty()) {
+					System.out.println("p1");
+					String fileName = uploadFile.getOriginalFilename();
+					uploadFile.transferTo(new File(path+fileName));
+					vo.setFiles(path+fileName);
+				}
 				boardService.updateBoard(vo);
 				/*view = "getBoardList.do";*/
 				/*mav.setViewName("redirect:getBoardList.do");*/

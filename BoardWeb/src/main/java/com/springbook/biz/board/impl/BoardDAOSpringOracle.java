@@ -29,7 +29,7 @@ public class BoardDAOSpringOracle{
 	//sql문
 	private final String BOARD_INSERT="insert into board3(seq, title, writer, content, files) values((select nvl(max(seq),0)+1 from board3),?,?,?,?)";
 	private final String BOARD_LIST="select * from board3 order by seq desc";
-	private final String BOARD_UPDATE="update board3 set title=?, content=? where seq=?";
+	private final String BOARD_UPDATE="update board3 set title=?, content=?, files=? where seq=?";
 	private final String BOARD_GET="select * from board3 where seq=?";
 	private final String BOARD_DELETE="delete from board3 where seq=?";
 	//Title
@@ -62,7 +62,8 @@ public class BoardDAOSpringOracle{
 	//글 수정
 	public void updateBoard(BoardVO vo) {
 		System.out.println("===>Spring JDBC로 updateBoard()기능 처리");
-		jdbcTemplate.update(BOARD_UPDATE,vo.getTitle(),vo.getContent(),vo.getSeq());
+			jdbcTemplate.update(BOARD_UPDATE,vo.getTitle(),vo.getContent(),vo.getFiles(),vo.getSeq());
+		
 	}
 	//글 상세정보
 	public BoardVO getBoard(int seq) {
