@@ -17,13 +17,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.springbook.biz.board.BoardListVO;
 import com.springbook.biz.board.BoardService;
 import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.board.impl.BoardDAO;
@@ -50,6 +53,28 @@ public class BoardController {
 		}
 		return view;
 	}
+	
+	//JSON타입 데이터 변환
+	@RequestMapping("/dataTransferJSON.do")
+	@ResponseBody /*????*/
+	public List<BoardVO> dataTransferJSON(BoardVO vo){
+		vo.setSearchCondition("TITLE");
+		vo.setSearchKeyword("");
+		List<BoardVO> list = boardService.getBoardList(vo);
+		return list;
+	}
+	//XML타입 데이터 변환
+	@RequestMapping("/dataTransferXml.do")
+	@ResponseBody /*????*/
+	public BoardListVO dataTransferXml(BoardVO vo){
+		vo.setSearchCondition("TITLE");
+		vo.setSearchKeyword("");
+		List<BoardVO> list = boardService.getBoardList(vo);
+		BoardListVO boardListVO = new BoardListVO();
+		boardListVO.setBoardList(list);
+		return boardListVO;
+	}
+	
 	//글 등록처리
 	@RequestMapping(value="/insertBoardProc.do", method=RequestMethod.POST)
 	public String insertBoardProc(HttpServletRequest request,BoardVO vo/*, BoardDAO dao*/) {
