@@ -15,7 +15,6 @@ public class SqlSessionFactoryBean {
 			if(sessionFactory == null) {
 				Reader reader = Resources.getResourceAsReader("sql-map-config.xml");
 				sessionFactory = new SqlSessionFactoryBuilder().build(reader);
-				
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -150,6 +150,8 @@ public class BoardController {
 					String fileName = uploadFile.getOriginalFilename();
 					uploadFile.transferTo(new File(path+fileName));
 					vo.setFiles(path+fileName);
+				}else {
+					vo.setFiles("");
 				}
 				boardService.updateBoard(vo);
 				/*view = "getBoardList.do";*/
@@ -187,10 +189,7 @@ public class BoardController {
 					/*mav.setViewName("redirect:getBoardList.do");*/
 					view = "redirect:getBoardList.do";
 				}else{
-					out.print("<script>");
-					out.print("alert('삭제 실패!');");
-					out.print("history.back();");
-					out.print("</script>");
+					view = "redirect:getBoardList.do";
 				}
 			} catch (IOException e) {
 				System.out.println(e.getMessage());

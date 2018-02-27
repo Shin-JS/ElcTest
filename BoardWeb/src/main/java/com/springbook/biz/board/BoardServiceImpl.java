@@ -9,7 +9,7 @@ import com.springbook.biz.board.impl.BoardDAOMybatis;
 /*import com.springbook.biz.board.impl.BoardDAO;*/
 /*import com.springbook.biz.board.impl.BoardDAOSpring;*/
 /*import com.springbook.biz.board.impl.BoardDAOSpring2;*/
-import com.springbook.biz.board.impl.BoardDAOSpringOracle;
+
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -22,26 +22,23 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void insertBoard(BoardVO vo) {
-		
 		dao.insertBoard(vo);
 		
 	}
 
 	@Override
 	public void updateBoard(BoardVO vo) {
-		//dao.updateBoard(vo);
+		dao.updateBoard(vo);
 	}
 
 	@Override
 	public int deleteBoard(int seq) {
-		//return dao.deleteBoard(seq);
-		return 0;
+		return dao.deleteBoard(seq);
 	}
 
 	@Override
 	public BoardVO getBoard(int seq) {
-		//return dao.getBoard(seq);
-		return new BoardVO();
+		return dao.getBoard(seq);
 	}
 
 	@Override

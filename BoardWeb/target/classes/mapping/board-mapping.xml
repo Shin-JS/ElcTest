@@ -4,15 +4,6 @@
 
 <mapper namespace="BoardDAO">
 
-<!-- 	<select id="getSomething" parameterType="int" resultType="#package.#modelname">
-		SELECT
-		columnname1,
-		columnname2,
-		columnname3
-		FROM tablename1
-		WHERE columnname1 = #{value}
-	</select> -->
-
 	<!-- <resultMap type="com.springbook.biz.board.BoardVO" id="boardResult"> --><!-- 윗줄이나 아랫줄이나 크게 차이 없음 -->
 	<resultMap type="board" id="boardResult">
 		<id property="seq" column="SEQ" />
@@ -34,22 +25,25 @@
 	<select id="getBoardList_A" resultMap="boardResult">
 		select * from board3 where title like '%'||#{searchKeyword}||'%' or content like '%'||#{searchKeyword}||'%' order by seq desc
 	</select>
-
+	<!-- 새글등록 -->
 	<insert id="insertBoard" parameterType="board">
 		insert into board3(seq, title, writer, content, files) values((select nvl(max(seq),0)+1 from board3),#{title},#{writer},#{content},#{files})
 	</insert>
-
-<!-- 	<update id="updateSomething" parameterType="#modelname">
-		UPDATE tablename1
-		SET
-		columnname1=#{param1}
-		WHERE
-		columnname2 = #{param2}
+	<!-- 글 상세조회 -->
+	<select id="selectOne" parameterType="int" resultType="board">
+		select * from board3 where seq=#{seq}
+	</select>
+	<!-- 기존글 수정 -->
+	<update id="updateBoard" parameterType="board">
+		update board3 set title=#{title}, content=#{content}, files=#{files} where seq=#{seq} 
 	</update>
-
-	<delete id="deleteSomething" parameterType="int">
-		DELETE FROM tablename1 WHERE
-		columnname1 = #{param1}
-	</delete> -->
-
+	<!-- 글 삭제 -->
+	<delete id="deleteBoard" parameterType="int">
+		delete from board3 where seq=#{seq}
+	</delete>
+	<!-- 조회수 업데이트 -->
+	<update id="updateCount" parameterType="int">
+		update board3 set cnt=cnt+1 where seq=#{seq}
+	</update>
+	
 </mapper>
