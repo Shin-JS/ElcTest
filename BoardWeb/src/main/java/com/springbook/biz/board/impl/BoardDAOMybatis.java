@@ -51,22 +51,27 @@ public class BoardDAOMybatis /*extends SqlSessionDaoSupport*/{
 	public List<BoardVO> getBoardList(BoardVO vo) {
 		System.out.println("===>Spring JDBC로 getBoardList()기능 처리");
 		List<BoardVO> list = new ArrayList<BoardVO>();
-		if(vo.getSearchCondition().equals("TITLE")) {
-			if(vo.getSearchKeyword()==null) {/*그냥 null값하니 mybatis에서 쿼리문 실행하면서 null값은 안된다고 에러남..*/
+		/*if(vo.getSearchCondition().equals("TITLE")) {
+			if(vo.getSearchKeyword()==null) {그냥 null값하니 mybatis에서 쿼리문 실행하면서 null값은 안된다고 에러남..
 				vo.setSearchKeyword("");
 			}
 			list = mybatis.selectList("BoardDAO.getBoardList_T", vo);
 		}else if(vo.getSearchCondition().equals("CONTENT")){
-			if(vo.getSearchKeyword()==null) {/*그냥 null값하니 mybatis에서 쿼리문 실행하면서 null값은 안된다고 에러남..*/
+			if(vo.getSearchKeyword()==null) {그냥 null값하니 mybatis에서 쿼리문 실행하면서 null값은 안된다고 에러남..
 				vo.setSearchKeyword("");
 			}
 			list = mybatis.selectList("BoardDAO.getBoardList_C", vo);
 		}else{
-			if(vo.getSearchKeyword()==null) { /*그냥 null값하니 mybatis에서 쿼리문 실행하면서 null값은 안된다고 에러남..*/
+			if(vo.getSearchKeyword()==null) { 그냥 null값하니 mybatis에서 쿼리문 실행하면서 null값은 안된다고 에러남..
 				vo.setSearchKeyword("");
 			}
 			list = mybatis.selectList("BoardDAO.getBoardList_A", vo);
+		}*/
+		//Dynamic SQL 적용 후
+		if(vo.getSearchKeyword()==null) {/*그냥 null값하니 mybatis에서 쿼리문 실행하면서 null값은 안된다고 에러남..*/
+			vo.setSearchKeyword("");
 		}
+		list = mybatis.selectList("BoardDAO.getBoardList", vo);
 		return list;
 	}
 	

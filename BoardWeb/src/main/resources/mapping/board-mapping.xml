@@ -16,7 +16,7 @@
 		
 	</resultMap>
 
-	<select id="getBoardList_T" resultMap="boardResult">
+<!-- 	<select id="getBoardList_T" resultMap="boardResult">
 		select * from board3 where title like '%'||#{searchKeyword}||'%' order by seq desc 
 	</select>
 	<select id="getBoardList_C" resultMap="boardResult">
@@ -24,7 +24,24 @@
 	</select>
 	<select id="getBoardList_A" resultMap="boardResult">
 		select * from board3 where title like '%'||#{searchKeyword}||'%' or content like '%'||#{searchKeyword}||'%' order by seq desc
-	</select>
+	</select> -->
+	<!-- Dynamic SQL 적용 -->
+	<!-- 뒤에오는 조건들이 and로 시작되기때문에 1=1 사용(true가 나오는 연산이면 다 되는듯) -->
+	<!-- where 1=1 대신 where부분부터 desc까지 <where></where>로 감싸줘도 됨 -->
+	<!-- 특수문자(>,<,...) 사용시 쿼리문 양끝을 <![cdata[]]>로 감싸주면 편하다 but Dynamic SQL 사용불가 -->
+	<select id="getBoardList" resultMap="boardResult">
+		select * from board3 where 1=1
+		<if test="searchCondition=='TITLE'">
+			and title like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition=='CONTENT'">
+			and content like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition=='ALL'">
+			and title like '%'||#{searchKeyword}||'%' or content like '%'||#{searchKeyword}||'%'
+		</if>
+		 order by seq desc
+	</select> 
 	<!-- 새글등록 -->
 	<insert id="insertBoard" parameterType="board">
 		insert into board3(seq, title, writer, content, files) values((select nvl(max(seq),0)+1 from board3),#{title},#{writer},#{content},#{files})
