@@ -13,7 +13,7 @@ import com.springbook.biz.board.BoardVO;
 /*	JdbcTemplate 객체를 얻는 두가지 방법중 두번째
  *	2. bean으로 등록된 jdbcTemplate를 얻는 방법(POJO 객체)
  * */
-@Repository("boardDao")
+@Repository()
 public class BoardDAOMybatis /*extends SqlSessionDaoSupport*/{
 	
 	@Autowired
