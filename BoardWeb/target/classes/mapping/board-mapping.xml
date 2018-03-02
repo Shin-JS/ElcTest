@@ -41,7 +41,7 @@
 			and title like '%'||#{searchKeyword}||'%' or content like '%'||#{searchKeyword}||'%'
 		</if>
 		 order by seq desc
-	</select> 
+	</select>
 	<!-- 새글등록 -->
 	<insert id="insertBoard" parameterType="board">
 		insert into board3(seq, title, writer, content, files) values((select nvl(max(seq),0)+1 from board3),#{title},#{writer},#{content},#{files})
@@ -62,5 +62,4 @@
 	<update id="updateCount" parameterType="int">
 		update board3 set cnt=cnt+1 where seq=#{seq}
 	</update>
-	
 </mapper>
